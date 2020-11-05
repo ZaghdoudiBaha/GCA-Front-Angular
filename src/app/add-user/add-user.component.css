@@ -1,3 +1,10 @@
-.card {
-    position: static;
+.dropdown{
+    margin-left: 15%;
+}
+
+.ng-invalid.ng-touched{
+    border-color: red;
+}
+.ng-valid.ng-touched{
+    border-color: green;
 }

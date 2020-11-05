@@ -1,5 +1,5 @@
 export class User{
-      id: number;
+        id: number;
 	  login: string;
 	  password: string;
 	  nom: string;
@@ -19,8 +19,6 @@ constructor (id: number, login: string, password: string, nom: string,
             this.mail =mail;
             this.tel =tel;
             this.accepted =accepted;
-
-
 
 }
     

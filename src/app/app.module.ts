@@ -12,6 +12,7 @@ import { MessagesComponent } from './pages/messages/messages.component';
 import { ReclamationComponent } from './pages/reclamation/reclamation.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddUserComponent } from './add-user/add-user.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AddUserComponent } from './add-user/add-user.component';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
     
   ],
   providers: [],
