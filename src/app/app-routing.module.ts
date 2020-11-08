@@ -11,10 +11,11 @@ const routes: Routes = [
   {path:'home', children:[
     {path:'user', component:ProfilUtilisateurComponent},
     {path:'addUser', component:AddUserComponent},
+    {path:'addUser/:id', component:AddUserComponent},
     {path:'absence', component:GestionAbsenceComponent},
     {path:'conge', component:GestionCongeComponent},
     {path:'message', component:MessagesComponent},
-    {path:'reclamation', component:ReclamationComponent}
+    {path:'reclamation', component:ReclamationComponent},
   ]}
 ];
 

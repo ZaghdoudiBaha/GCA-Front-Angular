@@ -6,10 +6,14 @@ export class User{
 	  prenom: string;
 	  mail: string;
 	  tel: string;
-	  accepted: boolean;
+          accepted: boolean;
+          absences: any = null;
+          conges: any = null;
+          reclamations: any = null
 
 constructor (id: number, login: string, password: string, nom: string, 
-             prenom: string, mail: string, tel: string,accepted: boolean) {
+             prenom: string, mail: string, tel: string,accepted: boolean, 
+             absences: any, conges: any, reclamations: any) {
 
             this.id = id;
             this.login = login;
@@ -19,8 +23,10 @@ constructor (id: number, login: string, password: string, nom: string,
             this.mail =mail;
             this.tel =tel;
             this.accepted =accepted;
+            this.absences = absences;
+            this.conges = conges;
+            this.reclamations = reclamations;         
 
 }
     
-
 }

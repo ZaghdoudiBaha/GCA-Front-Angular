@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col-8">
-                <h3 class="mb-0">Ajouter</h3>
+                <h2 class="mb-0">{{edit_mode == 'modifier' ? 'Modifier' : 'Ajouter'}}</h2>
             </div>
             <div class="col-4 text-right">
 
@@ -21,16 +21,16 @@
         </div>
     </div>
     <div class="card-body">
-        <form (ngSubmit)="addUser()" #formulaire="ngForm">
+        <form (ngSubmit)="saveUser()" #formulaire="ngForm">
 
-            <h6 class="heading-small text-muted mb-4">Information</h6>
+            <h3 class="heading-small text-muted mb-4">Information</h3>
             <div class="pl-lg-4">
                 <div class="row">
                     <!-- Nom -->
                     <div class="col-lg-6">
                         <div class="form-group"><label class="form-control-label" for="nom">Nom</label>
                             <input type="text" id="nom" class="form-control" placeholder="nom" placeholder="Nom"
-                                name="nom" ngModel #nom="ngModel" required>
+                                name="nom" ngModel #nom="ngModel" required [(ngModel)] = "editValue.nom">
                             <br>
                             <div class="alert alert-danger" *ngIf="nom.invalid && nom.touched">
                                 Votre nom n'est pas valide
@@ -42,7 +42,7 @@
                     <div class="col-lg-6">
                         <div class="form-group"><label class="form-control-label" for="prenom">Prenom
                             </label> <input type="text" id="prenom" class="form-control" placeholder="Prenom"
-                                name="prenom" #prenom="ngModel" ngModel required>
+                                name="prenom" #prenom="ngModel" ngModel required [(ngModel)] = "editValue.prenom">
                             <br>
                             <div class="alert alert-danger" *ngIf="prenom.invalid && prenom.touched">
                                 Votre prénom n'est pas valide
@@ -55,9 +55,9 @@
                 <div class="row">
                     <!-- Email -->
                     <div class="col-lg-6">
-                            <div class="form-group"><label class="form-control-label" for="">E-mail
-                                </label> <input type="email" id="email" class="form-control" placeholder="E-mail" name="email"
-                                    #email="ngModel" ngModel required email>
+                            <div class="form-group"><label class="form-control-label" for="mail">E-mail
+                                </label> <input type="email" id="mail" class="form-control" placeholder="E-mail" name="mail"
+                                    #email="ngModel" ngModel required email [(ngModel)] = "editValue.mail">
                                 <br>
                                 <div class="alert alert-danger" *ngIf="email.invalid && email.touched">
                                     Votre E-mail n'est pas valide
@@ -67,27 +67,27 @@
                     
                     <!-- Téléphone -->
                     <div class="col-lg-6">
-                        <div class="form-group"><label class="form-control-label" for="input-last-name">Téléphone
+                        <div class="form-group"><label class="form-control-label" for="tel">Téléphone
                             </label> <input type="tel" id="tel" class="form-control" placeholder="Téléphone" name="tel"
-                                #tel="ngModel" ngModel required minlength="8">
+                                #tel="ngModel" ngModel required minlength="8" [(ngModel)] = "editValue.tel">
                             <br>
                             <div class="alert alert-danger" *ngIf="tel.invalid && tel.touched">
-                                Votre telephone doit avoir au minimum 8 charactére
+                                Votre telephone doit avoir 8 charactére
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <hr class="my-4">
-            <h6 class="heading-small text-muted mb-4">
-                Authentification</h6>
+            <h3 class="heading-small text-muted mb-4">
+                Authentification</h3>
             <div class="pl-lg-4">
                 <div class="row">
                     <!-- Login -->
                     <div class="col-md-6">
-                        <div class="form-group"><label class="form-control-label" for="input-address">Login</label>
+                        <div class="form-group"><label class="form-control-label" for="login">Login</label>
                             <input id="login" class="form-control" placeholder="Login" type="text" ngModel required
-                                minlength="3" #login="ngModel" name="login">
+                                minlength="3" #login="ngModel" name="login" [(ngModel)] = "editValue.login">
                             <br>
                             <div class="alert alert-danger" *ngIf="login.invalid && login.touched">
                                 Votre login doit avoir au minimum 3 charactére
@@ -96,9 +96,9 @@
                     </div>
                     <!-- Password -->
                     <div class="col-md-6">
-                        <div class="form-group"><label class="form-control-label" for="input-address">Password</label>
+                        <div class="form-group"><label class="form-control-label" for="password">Password</label>
                             <input id="password" name="password" class="form-control" placeholder="Password" type="password"
-                                #password="ngModel" ngModel required minlength="6">
+                                #password="ngModel" ngModel required minlength="6" [(ngModel)] = "editValue.password">
                             <br>
                             <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
                                 Votre mot de passe doit avoir au minimum 6 charactére
@@ -108,12 +108,30 @@
                 </div>
             </div>
             <hr class="my-4">
+             
             <!-- Buttons -->
-            <button class="btn btn-primary" type="submit" style="margin-right: 5px;"
-                [disabled]="formulaire.invalid">Ajouter</button>
-            <button class="btn btn-danger" (click)= "onClear()">Annuler</button>
-
-
+            <div class="">
+                <div class=" custom-margin">
+                    <button class="btn btn-primary" type="submit"
+                    [disabled]="formulaire.invalid">
+                    {{edit_mode == 'modifier' ? 'Modifier' : 'Ajouter'}}
+                    </button>
+                </div>
+               
+                <div class="custom-margin">
+                    <button class="btn btn-secondary" type="button" (click)= "onClear()" 
+                    >Vider
+                    </button>
+                </div>
+                
+                <div class=" custom-margin">
+                    <button class="btn btn-danger" type="button" 
+                    (click)= "onDelete()" *ngIf="edit_mode == 'modifier'"
+                    >Supprimer
+                    </button>
+                </div>
+            </div>
         </form>
+        
     </div>
 </div>

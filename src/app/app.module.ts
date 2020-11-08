@@ -13,6 +13,15 @@ import { ReclamationComponent } from './pages/reclamation/reclamation.component'
 import { HttpClientModule } from '@angular/common/http';
 import { AddUserComponent } from './add-user/add-user.component';
 import { FormsModule } from '@angular/forms';
+import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
+import { MaterialModule } from './material/material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -24,15 +33,20 @@ import { FormsModule } from '@angular/forms';
     GestionCongeComponent,
     MessagesComponent,
     ReclamationComponent,
-    AddUserComponent
+    AddUserComponent,
+    MatConfirmDialogComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MaterialModule,
+    BrowserAnimationsModule
     
   ],
+  entryComponents:[AddUserComponent,MatConfirmDialogComponent]
+  ,
   providers: [],
   bootstrap: [AppComponent]
 })
