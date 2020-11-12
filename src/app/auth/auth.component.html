@@ -1,0 +1,23 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <i class="fas fa-user-circle fa-7x"></i>
+      </div>
+  
+      <!-- Login Form -->
+      <form (ngSubmit) = "onLogin(LoginForm)" #LoginForm = "ngForm">
+        <input type="text" id="login" class="fadeIn second" ngModel name="login" placeholder="login">
+        <input type="text" id="password" class="fadeIn third" ngModel name="password" placeholder="password">
+        <input type="submit" class="fadeIn fourth submit-login-GCA" value="Log In">
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Inscription</a>
+      </div>
+  
+    </div>
+  </div>

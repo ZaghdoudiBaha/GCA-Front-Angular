@@ -16,6 +16,10 @@ import { FormsModule } from '@angular/forms';
 import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
 import { MaterialModule } from './material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AddCongeComponent } from './add-conge/add-conge.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddAbsenceComponent } from './add-absence/add-absence.component';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -35,6 +39,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ReclamationComponent,
     AddUserComponent,
     MatConfirmDialogComponent,
+    AddCongeComponent,
+    AddAbsenceComponent,
+    AuthComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -42,7 +49,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
     
   ],
   entryComponents:[AddUserComponent,MatConfirmDialogComponent]

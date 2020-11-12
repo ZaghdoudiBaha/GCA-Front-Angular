@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/user.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class ProfilUtilisateurComponent implements OnInit {
 
   constructor(private userService : UserService,
               private router: Router, 
-              private route : ActivatedRoute) {}
+              private authService: AuthenticationService) {}
 
   ngOnInit(): void {
     this.userService.loadUsers().subscribe(resp =>{
@@ -29,6 +30,14 @@ export class ProfilUtilisateurComponent implements OnInit {
 
   editUser(id:number) {
     this.router.navigate(['/home/addUser', id] ,{queryParams:{'edit_mode':'modifier'}})
+  }
+
+  public isAdmin() {
+    return this.authService.isAdmin();
+  }
+
+  public isDirecteur() {
+    return this.authService.isDirecteur();
   }
 
 }

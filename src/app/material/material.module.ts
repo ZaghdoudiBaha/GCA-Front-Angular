@@ -7,6 +7,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -16,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatButtonModule,
     MatMenuModule,
     MatToolbarModule,
+    MatRadioModule,
     MatIconModule,
     MatCardModule,
     MatDialogModule,
@@ -28,7 +30,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatIconModule,
     MatCardModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule {}

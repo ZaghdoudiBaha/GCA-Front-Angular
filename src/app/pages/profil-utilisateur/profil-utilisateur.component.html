@@ -1,12 +1,12 @@
-<div class="card">
+<div class="card" *ngIf = "isAdmin() || isDirecteur()">
   <div class="card-header">
 
-    <h4 class="card-title"> Profil utilisateur</h4>
+    <h3 class="card-title"> Profil utilisateur</h3>
   </div>
   <div class="card-body">
     <div class="table-responsive ps">
       <button class="btn btn-primary" (click)="toAddUser()"><i class="fas fa-user-plus"></i></button> <br><br>
-      <table class="table tablesorter " id="">
+      <table class="table table-hover">
         <thead class=" text-primary">
           <tr>
             <th>
