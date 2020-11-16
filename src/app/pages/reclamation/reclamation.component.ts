@@ -16,10 +16,6 @@ export class ReclamationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.isAuth = this.authService.isAuthenticated;
-    if(this.isAuth == false){
-      this.router.navigate(['/home/login'])
-    }
   }
 
 }

@@ -16,7 +16,7 @@ export class AddAbsenceComponent implements OnInit {
 
   absence: Absence;
   edit_mode: string;
-  user = new User(1,'user','user','Baha','Zaghdoudi','zagdoudi@gmail.com','98654321',true,null,null,null);
+  user = new User(1,'user','user','Baha','Zaghdoudi','zagdoudi@gmail.com','98654321',true,null,null,null,null);
   editValue = new Absence(-1, null ,null , null);
   id:number;
 

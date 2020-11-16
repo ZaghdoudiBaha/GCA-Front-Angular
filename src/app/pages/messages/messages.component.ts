@@ -14,10 +14,7 @@ export class MessagesComponent implements OnInit {
               private router : Router) { }
 
   ngOnInit(): void {
-    this.isAuth = this.authService.isAuthenticated;
-    if(this.isAuth == false){
-      this.router.navigate(['/home/login'])
-    }
+
   }
 
 }

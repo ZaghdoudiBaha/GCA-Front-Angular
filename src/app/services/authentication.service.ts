@@ -1,83 +1,55 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
- private users = [{ login : 'admin', password : '1234', roles : ['ADMIN', 'USER', 'DIRECTEUR']},
-                  { login : 'directeur', password : '1234', roles : ['USER', 'DIRECTEUR']},     
-                  { login : 'user', password : '1234', roles : ['USER']}
-                  
-];
+  private host :string = "http://localhost:8080";
+  private jwtToken :string;
+  private roles : Array<any> = [];
 
-  public isAuthenticated: boolean = false;
-  public userAuthenticated;
-  public token :string;
-  
-  constructor() { }
+  constructor(private http : HttpClient){}
 
-  public login (login: string, password: string) {
-    let user;
-    this.users.forEach(u => {
-      if( u.login == login && u.password == password){
-        user = u;
-        this.token = btoa(JSON.stringify({login: u.login, roles: u.roles}));
-      }
-    });
-    if(user){
-      this.isAuthenticated = true;
-      this.userAuthenticated =user;
-    }else{
-      this.isAuthenticated =false;
-      this.userAuthenticated = undefined;
-    }
+
+  login(user){
+    return this.http.post(this.host+"/login", user, {observe:'response'});
   }
 
-  public isAdmin() {
-    if (this.userAuthenticated) {
-      if (this.userAuthenticated.roles.indexOf('ADMIN')>-1)
-      return true;
-    }
-    return false;
-  }
+ saveToken(jwt : string){
+   this.jwtToken = jwt;
+   localStorage.setItem('token',jwt);
+   let jwtHelper = new JwtHelperService();
+   this.roles = jwtHelper.decodeToken(this.jwtToken).roles;
+ }
 
-  public isDirecteur() {
-    if (this.userAuthenticated) {
-      if (this.userAuthenticated.roles.indexOf('DIRECTEUR')>-1)
-      return true; 
+ loadToken(){ 
+   this.jwtToken = localStorage.getItem('token');
+   return this.jwtToken;
+ }
+
+ logout(){
+   localStorage.removeItem('token');
+   this.jwtToken = "";
+   this.roles =[];
+ }
+
+ isAdmin(){
+   for (let r of this.roles){
+     if (r.authority == 'ADMIN') return true;
+   }
+   return false;
+ }
+
+ isDirecteur(){
+    for (let r of this.roles){
+      if (r.authority == 'DIRECTEUR') return true;
     }
     return false;
   }
-
-  public saveAuthenticatedUser() {
-    if (this.userAuthenticated) {
-      localStorage.setItem('authToken',this.token);
-    }
-  }
-
-  public loadAuthUserFromLocalStorage(){
-    let token = localStorage.getItem('authToken');
-    if(token){
-      let user = JSON.parse(atob(token));
-      console.log(user);
-      this.userAuthenticated = user;
- 
-      this.isAuthenticated = true;
-      this.token = token;
-    }
-    
-  }
-
-  public removeTokenFromLocalStorage(){
-    localStorage.removeItem('authToken');
-    this.isAuthenticated = false;
-    this.token = undefined;
-    this.userAuthenticated = undefined;
-  }
-
-
-
-
 
 }

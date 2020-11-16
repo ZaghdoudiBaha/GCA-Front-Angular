@@ -10,34 +10,28 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profil-utilisateur.component.css']
 })
 export class ProfilUtilisateurComponent implements OnInit {
-  userList : User[];
+  userList : User[] = [];
   color = 'red';
 
   constructor(private userService : UserService,
               private router: Router, 
-              private authService: AuthenticationService) {}
+              public authService: AuthenticationService) {}
 
   ngOnInit(): void {
     this.userService.loadUsers().subscribe(resp =>{
       this.userList = resp;
+    },err =>{
+      this.authService.logout();
+      this.router.navigate(['/home/login'])
     });
   }
 
   toAddUser(){
-
     this.router.navigate(['/home/addUser'],{queryParams:{'edit_mode':'ajouter'}})
   }
 
   editUser(id:number) {
     this.router.navigate(['/home/addUser', id] ,{queryParams:{'edit_mode':'modifier'}})
-  }
-
-  public isAdmin() {
-    return this.authService.isAdmin();
-  }
-
-  public isDirecteur() {
-    return this.authService.isDirecteur();
   }
 
 }

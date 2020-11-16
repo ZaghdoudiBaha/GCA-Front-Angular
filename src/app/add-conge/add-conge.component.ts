@@ -18,7 +18,7 @@ export class AddCongeComponent implements OnInit {
   conge: Conge ; 
   edit_mode: string;
   id: number;
-  user = new User(1,'user','user','Baha','Zaghdoudi','zagdoudi@gmail.com','98654321',true,null,null,null);
+  user = new User(1,'user','user','Baha','Zaghdoudi','zagdoudi@gmail.com','98654321',true,null,null,null,null);
   editValue = new Conge(null,null,null,'',false,false,0,null);
 
 

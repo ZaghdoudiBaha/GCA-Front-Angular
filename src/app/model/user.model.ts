@@ -7,13 +7,14 @@ export class User{
 	  mail: string;
 	  tel: string;
           accepted: boolean;
-          absences: any = null;
-          conges: any = null;
-          reclamations: any = null
+          absences: any;
+          conges: any;
+          reclamations: any;
+          roles: any;
 
 constructor (id: number, login: string, password: string, nom: string, 
              prenom: string, mail: string, tel: string,accepted: boolean, 
-             absences: any, conges: any, reclamations: any) {
+             absences: any, conges: any, reclamations: any, roles: any) {
 
             this.id = id;
             this.login = login;
@@ -25,7 +26,8 @@ constructor (id: number, login: string, password: string, nom: string,
             this.accepted =accepted;
             this.absences = absences;
             this.conges = conges;
-            this.reclamations = reclamations;         
+            this.reclamations = reclamations;      
+            this.roles = roles;     
 
 }
     

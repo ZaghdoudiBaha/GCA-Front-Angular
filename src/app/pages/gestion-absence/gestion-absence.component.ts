@@ -28,11 +28,6 @@ export class GestionAbsenceComponent implements OnInit {
         console.log(error); 
       }
       );
-      this.isAuth = this.authService.isAuthenticated
-      
-      if (this.isAuth == false){
-        this.router.navigate(['/home/login'])
-      }
   }
 
   toAddAbsence(){

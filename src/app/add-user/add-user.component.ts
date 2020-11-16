@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit ,ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../model/user.model';
+import { AuthenticationService } from '../services/authentication.service';
 import { DialogService } from '../services/dialog.service';
 import { UserService } from '../services/user.service';
 
@@ -16,7 +17,7 @@ export class AddUserComponent implements OnInit {
   user: User ; 
   edit_mode: string;
   id: number;
-  editValue = new User (-1,'','','','','','',false,null,null,null);
+  editValue = new User (-1,'','','','','','',false,null,null,null,null);
 
 
 
@@ -26,6 +27,7 @@ export class AddUserComponent implements OnInit {
               private router: Router,
               private route : ActivatedRoute,
               private dialog : DialogService,
+              public authService : AuthenticationService
                ) { }
 
   ngOnInit(): void {
@@ -35,7 +37,6 @@ export class AddUserComponent implements OnInit {
       console.log(this.editValue);
     });
 
-    
 
     if(this.edit_mode == "modifier"){
       this.route.params.subscribe(params =>{
@@ -56,20 +57,36 @@ export class AddUserComponent implements OnInit {
 
   saveUser(){
     this.user = this.formulaire.form.value;
+    console.log(this.user);
+    let r =this.user.roles;
+    this.user.roles = null;
+
     this.user.accepted = this.etat;
     if(this.edit_mode == 'modifier'){
       this.user.id = this.id;
     }
+    // Pour  ajouter l'utilisateur a la base
       this.userService.saveUser(this.user).subscribe (
         response => {
-          const link = ['home/user']
-          this.router.navigate (link);
-          console.log(response);
+          if(this.authService.isAdmin() || this.authService.isDirecteur()){
+            const link = ['home/user']
+            this.router.navigate (link);
+          } else {
+            this.router.navigate(['home/accueil']);
+          }     
         },
         error=> {
-         console.log(error);
+          console.log(error);  
         }
-      )
+      );
+      // Pour  affecter a l'utilisateur un role
+      this.userService.addRoleToUser(this.user.login,r).subscribe(resp =>{
+        console.log(resp);
+      },
+      err =>{
+        console.log(err);
+        
+      });
   }
   changeStatus(status){
     this.etat = status;
@@ -100,5 +117,4 @@ export class AddUserComponent implements OnInit {
       });
   }
 
- 
 }

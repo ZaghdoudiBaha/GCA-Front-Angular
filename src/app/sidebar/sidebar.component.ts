@@ -9,25 +9,16 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService ,
+  constructor(public authService: AuthenticationService,
               private router : Router) { }
 
   ngOnInit(): void {
-    this.authService.loadAuthUserFromLocalStorage();
-  }
 
-  public isAdmin() {
-    return this.authService.isAdmin();
-  }
-
-  public isDirecteur() {
-    return this.authService.isDirecteur();
   }
 
   logout(){
-    this.authService.removeTokenFromLocalStorage();
+    this.authService.logout(); 
     this.router.navigate(['/home/login']);
-    
   }
 
 }

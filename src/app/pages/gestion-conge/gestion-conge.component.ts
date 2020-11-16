@@ -26,10 +26,6 @@ isAuth : boolean;
     },err =>{
       console.log(err);
     });
-    this.isAuth = this.authService.isAuthenticated;
-    if (this.isAuth == false){
-      this.router.navigate(['/home/login'])
-    }
   }
 
   toAddConge(){

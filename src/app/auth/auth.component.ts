@@ -12,6 +12,7 @@ export class AuthComponent implements OnInit {
 
   login: string;
   password: string;
+  mode : number = 0;
 
   constructor(private authService : AuthenticationService,
               private router: Router) { }
@@ -20,11 +21,19 @@ export class AuthComponent implements OnInit {
   }
   
   onLogin(loginForm: NgForm) {
-    this.authService.login(loginForm.form.value.login, loginForm.form.value.password );
-      if (this.authService.isAuthenticated) {
-        this.authService.saveAuthenticatedUser();
-        this.router.navigate(['/home/user'])
-      }
+    this.authService.login(loginForm.form.value).subscribe( resp =>{
+      let jwt = resp.headers.get('authorization')
+      this.authService.saveToken(jwt);
+      this.router.navigate(['/home/accueil']);
+    },
+    err =>{
+      this.mode = 1;
+      console.log(err);
+    } )
+  }
+
+  redirectToAddUser(){
+    this.router.navigate(['/home/addUser'],{queryParams:{'edit_mode':'ajouter'}})
   }
 
 }
