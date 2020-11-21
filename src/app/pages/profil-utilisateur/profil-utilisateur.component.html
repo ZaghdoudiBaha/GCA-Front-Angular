@@ -1,7 +1,7 @@
 <div class="card" *ngIf = "authService.isAdmin() || authService.isDirecteur()">
   <div class="card-header">
 
-    <h3 class="card-title">Profil utilisateur</h3>
+    <h2 class="card-title">Profil utilisateur</h2>
   </div>
   <div class="card-body" *ngIf="userList">
     <div class="table-responsive ps">
@@ -43,16 +43,16 @@
               {{user.id}}
             </td>
             <td>
-              {{user.login}}
+              {{user.login|uppercase}}
             </td>
             <td>
-              {{user.password}}
+              {{user.password | trancate}}
             </td>
             <td>
-              {{user.nom}}
+              {{user.nom|uppercase}}
             </td>
             <td>
-              {{user.prenom}}
+              {{user.prenom|uppercase}}
             </td>
             <td>
               {{user.mail}}
@@ -61,7 +61,7 @@
               {{user.tel}}
             </td>
             <td>
-              {{user.accepted}}
+              {{user.accepted?'Active':'Désactive'}}
             </td>
 
           </tr>

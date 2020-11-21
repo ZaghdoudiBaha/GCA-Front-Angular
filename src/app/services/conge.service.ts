@@ -18,12 +18,15 @@ export class CongeService {
               private authService : AuthenticationService) {}
 
   loadConges(): Observable<Conge[]>{
-     return this.http.get<any>(this.link+"/list", {headers: new HttpHeaders({"Authorization": this.authService.loadToken()})} );
+     return this.http.get<Conge[]>(this.link+"/list", {headers: new HttpHeaders({"Authorization": this.authService.loadToken()})} );
   }
 
   saveConge(conge:Conge){
       return this.http.post(this.link+"/addConge", conge, {headers: new HttpHeaders({"Authorization": this.authService.loadToken()})} );    
   }
+  acceptConge(conge:Conge, login : string){
+    return this.http.post(this.link+"/accept/"+login, conge, {headers: new HttpHeaders({"Authorization": this.authService.loadToken()})} );    
+}
 
   deleteConge(id : number){
     return this.http.delete(this.link+"/deleteConge/"+String(id), {headers: new HttpHeaders({"Authorization": this.authService.loadToken()})} );

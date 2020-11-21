@@ -17,7 +17,7 @@ export class AddUserComponent implements OnInit {
   user: User ; 
   edit_mode: string;
   id: number;
-  editValue = new User (-1,'','','','','','',false,null,null,null,null);
+  editValue = new User (-1,'','','','','','',false,null,null,null,null,0);
 
 
 
@@ -35,8 +35,7 @@ export class AddUserComponent implements OnInit {
     this.route.queryParams.subscribe(qp =>{
       this.edit_mode=qp['edit_mode'];
       console.log(this.editValue);
-    });
-
+    }); 
 
     if(this.edit_mode == "modifier"){
       this.route.params.subscribe(params =>{
@@ -45,11 +44,9 @@ export class AddUserComponent implements OnInit {
       this.userService.getUserById(this.id).subscribe (
         user => {
           this.editValue = user;
-          console.log(this.editValue); 
         },
         error => {
           console.log(error);
-          
         }
       )
     }
@@ -58,38 +55,49 @@ export class AddUserComponent implements OnInit {
   saveUser(){
     this.user = this.formulaire.form.value;
     console.log(this.user);
-    let r =this.user.roles;
-    this.user.roles = null;
-
+    let r = this.user.roles;
+    this.user.roles = undefined;
     this.user.accepted = this.etat;
     if(this.edit_mode == 'modifier'){
       this.user.id = this.id;
     }
-    // Pour  ajouter l'utilisateur a la base
+      // Pour  ajouter l'utilisateur a la base
       this.userService.saveUser(this.user).subscribe (
         response => {
           if(this.authService.isAdmin() || this.authService.isDirecteur()){
-            const link = ['home/user']
-            this.router.navigate (link);
+            this.router.navigate (['home/user']);
           } else {
             this.router.navigate(['home/accueil']);
-          }     
+          } 
+          if ( r!= null){
+            // Pour  affecter a l'utilisateur un role
+            this.userService.addRoleToUser(this.user.login,r).subscribe(resp =>{
+              console.log(resp);
+            },
+            err =>{
+              console.log(err);
+            });
+          }    
         },
         error=> {
           console.log(error);  
-        }
-      );
-      // Pour  affecter a l'utilisateur un role
-      this.userService.addRoleToUser(this.user.login,r).subscribe(resp =>{
-        console.log(resp);
-      },
-      err =>{
-        console.log(err);
-        
       });
   }
-  changeStatus(status){
-    this.etat = status;
+
+  ChangeStateUser(){
+    if(this.editValue.accepted){
+      this.userService.desactiverUser(this.id).subscribe(resp =>{
+        this.router.navigate (['home/user']);
+      },err =>{
+        console.log(err);
+      });
+    }else{
+      this.userService.activerUser(this.id).subscribe(resp =>{
+        this.router.navigate (['home/user']);
+      },err =>{
+        console.log(err);
+      });
+    }
   }
 
   onClear() {
@@ -97,24 +105,15 @@ export class AddUserComponent implements OnInit {
   }
 
   onDelete(){
-    /* this.userService.deleteUser(this.id).subscribe(
-      response =>{
-        const link = ['home/user']
-        this.router.navigate (link);
-        console.log(response);
-      }); */
-
-      this.dialog.openConfirmDialog('Vous êtes sure de supprimer cet utilisateur ?')
+    this.dialog.openConfirmDialog('Vous êtes sure de supprimer cet utilisateur ?')
       .afterClosed().subscribe(res =>{
-        if(res){
-          this.userService.deleteUser(this.id).subscribe(
-            response =>{
-            const link = ['home/user']
-            this.router.navigate (link);
-            console.log(response);
-          });
-        }
-      });
+      if(res){
+        this.userService.deleteUser(this.id).subscribe(
+          response =>{
+          this.router.navigate (['home/user']);
+          console.log(response);
+        });
+      }
+    });
   }
-
 }

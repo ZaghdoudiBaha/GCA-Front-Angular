@@ -4,6 +4,7 @@ import { AddAbsenceComponent } from './add-absence/add-absence.component';
 import { AddCongeComponent } from './add-conge/add-conge.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AuthComponent } from './auth/auth.component';
+import { DetailCongeComponent } from './detail-conge/detail-conge.component';
 import { DashbordComponent } from './pages/dashbord/dashbord.component';
 import { GestionAbsenceComponent } from './pages/gestion-absence/gestion-absence.component';
 import { GestionCongeComponent } from './pages/gestion-conge/gestion-conge.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
     {path:'message', component:MessagesComponent},
     {path:'reclamation', component:ReclamationComponent},
     {path:'accueil', component:DashbordComponent},
+    {path:'detailConge/:id', component:DetailCongeComponent},
   ]},
   {path:'', redirectTo : 'home/login', pathMatch:'full'}
     

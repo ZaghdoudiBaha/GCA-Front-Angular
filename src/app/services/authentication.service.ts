@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../model/user.model';
+
 
 
 
@@ -12,6 +14,9 @@ export class AuthenticationService {
   private host :string = "http://localhost:8080";
   private jwtToken :string;
   private roles : Array<any> = [];
+  private userAuthenticated : User;
+  private userName : string;
+
 
   constructor(private http : HttpClient){}
 
@@ -25,11 +30,16 @@ export class AuthenticationService {
    localStorage.setItem('token',jwt);
    let jwtHelper = new JwtHelperService();
    this.roles = jwtHelper.decodeToken(this.jwtToken).roles;
+   this.userName = jwtHelper.decodeToken(this.jwtToken).sub;
  }
 
  loadToken(){ 
    this.jwtToken = localStorage.getItem('token');
    return this.jwtToken;
+ }
+
+ getLogin() : string{
+  return this.userName;
  }
 
  logout(){
@@ -38,6 +48,13 @@ export class AuthenticationService {
    this.roles =[];
  }
 
+ setUserAuthenticated(user : User){
+   this.userAuthenticated = user;
+ }
+
+ getUserAuthenticated(){
+  return this.userAuthenticated;
+}
  isAdmin(){
    for (let r of this.roles){
      if (r.authority == 'ADMIN') return true;

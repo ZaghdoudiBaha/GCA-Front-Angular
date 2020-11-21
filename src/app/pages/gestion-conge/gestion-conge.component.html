@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
   
-      <h3 class="card-title"> Gestion Congé</h3>
+      <h2 class="card-title"> Liste des congés demandées </h2>
     </div>
     <div class="card-body">
       <div class="table-responsive ps">
@@ -19,57 +19,33 @@
                 Prenom
               </th>
               <th>
-                Début
-              </th>
-              <th>
-                Fin
-              </th>
-              <th>
-                raison
-              </th>
-              <th>
                 Solde Congé
               </th>
               <th>
-                Payer
+                Etat
               </th>
-              <th>
-                Actif
-              </th>
-            </tr>
           </thead>
           <tbody>
-            <!-- [class] pour mettre le contenue de la class d'une maniere dynamique avec une condition  -->
-            <tr *ngFor="let conge of congeList" style="cursor: pointer;"(click)="editConge(conge.id)"
-                [class]= "conge.confirmation == false ? 'alert alert-danger' : 'alert alert-success'">
+
+            <tr [class]="VerificationCongeEnAttente(user.conges)?'alert alert-danger':'alert alert-success'"
+                *ngFor="let user of usersList ;let index = index" style="cursor: pointer;"
+                (click)="detailUser(user.id)"
+            >
               <td>
-                {{conge.id}}
+                {{user.id}}
               </td>
               <td>
-                {{conge.user.nom}}
+                {{user.nom|uppercase}}
               </td>
               <td>
-                {{conge.user.prenom}}
+                {{user.prenom|uppercase}}
               </td>
               <td>
-                {{conge.dateDebut}}
+                {{user.soldeConge}}
               </td>
               <td>
-                {{conge.dateFin}}
+                {{VerificationCongeEnAttente(user.conges)? 'Il y a des demandes en attente !': 'Toutes les demandes sont vérifiées'}}
               </td>
-              <td>
-                {{conge.raison}}
-              </td>
-              <td>
-                {{conge.soldeConge}}
-              </td>
-              <td>
-                {{conge.payer}}
-              </td>
-              <td>
-                {{conge.confirmation}}
-              </td>
-  
             </tr>
           </tbody>
         </table>

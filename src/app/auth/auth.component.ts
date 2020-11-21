@@ -24,6 +24,8 @@ export class AuthComponent implements OnInit {
     this.authService.login(loginForm.form.value).subscribe( resp =>{
       let jwt = resp.headers.get('authorization')
       this.authService.saveToken(jwt);
+      console.log(resp);
+      
       this.router.navigate(['/home/accueil']);
     },
     err =>{

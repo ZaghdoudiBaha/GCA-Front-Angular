@@ -4,21 +4,6 @@
             <div class="col-8">
                 <h2 class="mb-0">{{edit_mode == 'modifier' ? 'Modifier la demande de congé' : 'Demande de congé'}}</h2>
             </div>
-            <div class="col-4 text-right">
-                <!-- dropdown Etat-->
-                <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Etat
-                </button>
-
-                <div class="dropdown-menu">
-                    <li class="dropdown-item" (click)="changeStatus(true)">Actif</li>
-                    <li class="dropdown-item" (click)="changeStatus(false)">Inactif</li>
-                </div>
-                <!-- Basic dropdown -->
-
-
-            </div>
         </div>
     </div>
     <div class="card-body">
@@ -46,8 +31,8 @@
                         <div class="col-md-3">
                             <div class="input-group">
                                 <input class="form-control" placeholder="Select date de fin"
-                                    name="dateFin" ngModel ngbDatepicker #df="ngbDatepicker"
-                                    [value]="editValue.dateFin"required>
+                                    name="dateFin" ngModel  ngbDatepicker #df="ngbDatepicker"
+                                    [value]="editValue.dateFin" required>
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary calendar" (click)="df.toggle()" type="button">
                                             <i class="far fa-calendar-alt"></i>
@@ -70,7 +55,7 @@
                         ngModel 
                         name="raison" 
                         rows="3"
-                        [(ngModel)]="editValue.raison" 
+                        [value]="editValue.raison" 
                         required>
                     </textarea>
                 </div>
@@ -82,7 +67,6 @@
             <!-- Payer -->
             <div class="col">
                 <mat-radio-group aria-label="Select an option" 
-                                
                                  ngModel
                                  name="payer"
                                  required>
@@ -90,13 +74,9 @@
                     <mat-radio-button value= false [checked]="!editValue.payer"> Non Payé</mat-radio-button>
                 </mat-radio-group>
             </div>
-        
 
         </div>
-        
-  
 
-             
             <!-- Buttons -->
             <hr class="my-4">
             <div class="">
@@ -125,6 +105,14 @@
                         (click)= "onDelete()" 
                         *ngIf="edit_mode == 'modifier'">
                         Supprimer
+                    </button>
+                </div>
+                <div class=" custom-margin" 
+                *ngIf="edit_mode == 'modifier'&& !editValue.confirmation 
+                && (authService.isAdmin() || authService.isDirecteur()) 
+                && userAuthenticated.soldeConge > 0">
+                    <button type="button" class="btn btn-success" (click)="accepter()">
+                        Accepter
                     </button>
                 </div>
             </div>

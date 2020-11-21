@@ -17,6 +17,16 @@
     width: 100%;
 }
 
+.etat-user{
+    text-align: center;
+}
+.container-etat-user{
+    max-width: 18%;
+}
+
+mat-radio-button{
+    padding: 10px 10px 10px 10px;
+}
 
 @media screen and (max-width: 640px) {
     .custom-margin {

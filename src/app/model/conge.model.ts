@@ -7,11 +7,10 @@ export class Conge{
         public id : number,
         public dateDebut:  Data,
         public dateFin : Data,
-        public  raison : string,
+        public raison : string,
         public confirmation : boolean,
-        public  payer : boolean,
-        public  SoldeConge : number,
-        public user : User
+        public payer : boolean,
+        public user  : User
 
      ){}
 

@@ -19,12 +19,12 @@
         <img src="assets/images/gca.jpg" class="profile_image" alt="gca">   
     </div><br>
 
-     <a [routerLink]="['home/accueil']"><i class="fas fa-desktop"></i><span>Accueil</span></a>
+     <a [routerLink]="['home/accueil']" *ngIf="authService.loadToken()"><i class="fas fa-desktop"></i><span>Accueil</span></a>
      <a [routerLink]="['home/user']" *ngIf = "authService.isAdmin() || authService.isDirecteur()"><i class="far fa-user"></i><span>Profil utilisateur</span></a>
-     <a [routerLink]="['home/absence']"><i class="fas fa-tasks"></i><span>Gestion Absence</span></a>
-     <a [routerLink]="['home/conge']"><i class="far fa-calendar-check"></i><span>Gestion Conge</span></a>
-     <a [routerLink]="['home/message']"><i class="far fa-comment-dots"></i><span>Messages</span></a>
-     <a [routerLink]="['home/reclamation']"><i class="fas fa-exclamation-circle"></i><span>Réclamation</span></a>
+     <a [routerLink]="['home/absence']" *ngIf="authService.loadToken()"><i class="fas fa-tasks"></i><span>Gestion Absence</span></a>
+     <a [routerLink]="['home/conge']" *ngIf="authService.loadToken()"><i class="far fa-calendar-check"></i><span>Gestion Conge</span></a>
+     <a [routerLink]="['home/message']" *ngIf="authService.loadToken()"><i class="far fa-comment-dots"></i><span>Messages</span></a>
+     <a [routerLink]="['home/reclamation']" *ngIf="authService.loadToken()"><i class="fas fa-exclamation-circle"></i><span>Réclamation</span></a>
 </div>
 <!-- sidebar end -->
 <div class="content">  

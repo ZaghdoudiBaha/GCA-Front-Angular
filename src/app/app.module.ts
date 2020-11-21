@@ -20,6 +20,8 @@ import { AddCongeComponent } from './add-conge/add-conge.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddAbsenceComponent } from './add-absence/add-absence.component';
 import { AuthComponent } from './auth/auth.component';
+import { TrancatePipe } from './trancate.pipe';
+import { DetailCongeComponent } from './detail-conge/detail-conge.component';
 
 
 
@@ -42,6 +44,8 @@ import { AuthComponent } from './auth/auth.component';
     AddCongeComponent,
     AddAbsenceComponent,
     AuthComponent,
+    TrancatePipe,
+    DetailCongeComponent,
   ],
   imports: [
     AppRoutingModule,
